@@ -1,0 +1,184 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/FeMjUcfY"))()
+local Window  = Library.CreateLib("Script", "Synapse")
+local AutoBuy = ""
+local AutoDupe = ""
+local AutoSelling = ""
+local AutoDrop = ""
+local p1 = game.Players.LocalPlayer.Character.HumanoidRootPart
+local p2 = ""
+local pos = p1.CFrame
+local NumberColored = 1
+
+local Tab     = Window:NewTab("info")
+local Section = Tab:NewSection("Gui")
+Section:NewKeybind("Close F open F", "Close F open F", Enum.KeyCode.F, function()
+    Library:ToggleUI()
+end)
+local Tab     = Window:NewTab("Dupe")
+local Section = Tab:NewSection("Dupe pet")
+Section:NewButton("One by One", "Selling Items", function()
+    
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if v:IsA("Tool") and v.Name ~= nil then
+        setclipboard(v.Name)
+
+        local args = {
+            [1] = {
+                [v.Name] = 1
+            }
+        }
+        
+        game:GetService("ReplicatedStorage").Functions.Fuse.FuseRF:InvokeServer(unpack(args))
+
+        else
+        setclipboard("NO ITEM FOUND")
+    end
+end
+    end)
+
+    Section:NewToggle("Auto Upgrade", "Dupe", function(state)
+        if state then
+    _G.AutoDupe = true
+    while _G.AutoDupe == true do
+        wait()
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("Tool") then
+                if v.Name ~= "10130" then
+                    local args = {
+                        [1] = {
+                            [v.Name] = 1
+    
+                        }
+                    }
+    
+                    game:GetService("ReplicatedStorage").Functions.Fuse.FuseRF:InvokeServer(unpack(args))
+    
+                else
+                    print("tool found")
+                    _G.stop = false
+                    
+                            game.StarterGui:SetCore("SendNotification", {
+                Title = "CAN'T"; -- the title (ofc)
+                Text = "TOOL FOUND"; -- what the text says (ofc)
+                Duration = 5; -- how long the notification should in secounds
+            })
+                end
+            end
+        end    
+    end
+        else
+        
+    _G.AutoDupe = false
+            
+        end
+    end)
+
+
+local Tab     = Window:NewTab("Pet Color")
+local Section = Tab:NewSection("Colored Pet")
+
+Section:NewButton("Normal Or Dupe Normal -Need 6", "Selling Items", function()
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+                local args = {
+                    [1] = v.Name,
+                    [2] = 6,
+                    [3] = "Normal"
+                }
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(args))
+    wait()
+    local args = {
+        [1] = "TakeTool",
+        [2] = v.name
+    }
+    game:GetService("ReplicatedStorage").Events.PickAndDrop.PickAndDropRE:FireServer(unpack(args))
+    end
+    end
+end)
+
+Section:NewButton("Work With Normal Colored Or Dupe -Need 6", "Selling Items", function()
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+                local args = {
+                    [1] = v.Name,
+                    [2] = 6,
+                    [3] = "Colored"
+                }
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(args))
+    wait()
+    local args = {
+        [1] = "TakeTool",
+        [2] = v.name
+    }
+    game:GetService("ReplicatedStorage").Events.PickAndDrop.PickAndDropRE:FireServer(unpack(args))
+    end
+    end
+end)
+
+Section:NewButton("Golden", "Selling Items", function()
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+                local args = {
+                    [1] = v.Name,
+                    [2] = 6,
+                    [3] = "Golden"
+                }
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(args))
+    wait()
+    local args = {
+        [1] = "TakeTool",
+        [2] = v.name
+    }
+    game:GetService("ReplicatedStorage").Events.PickAndDrop.PickAndDropRE:FireServer(unpack(args))
+    end
+    end
+end)
+
+Section:NewButton("Rainbow", "Selling Items", function()
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+                local args = {
+                    [1] = v.Name,
+                    [2] = 6,
+                    [3] = "Rainbow"
+                }
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(args))
+    wait()
+    local args = {
+        [1] = "TakeTool",
+        [2] = v.name
+    }
+    game:GetService("ReplicatedStorage").Events.PickAndDrop.PickAndDropRE:FireServer(unpack(args))
+    end
+    end
+end)
+
+local Tab     = Window:NewTab("Buying")
+local Section = Tab:NewSection("Buy")
+Section:NewButton("Buying -Need 1 and Need the money", "Selling Items", function()
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+local args = {
+    [1] = "purchase",
+    [2] = v.Name,
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Events.Coin.CoinMarketRE:FireServer(unpack(args))
+
+    wait()
+    end
+end
+end)
+
+local Tab     = Window:NewTab("Owner")
+local Section = Tab:NewSection("Made By ihavebadname")
+local Section = Tab:NewSection("IHAVEBADNAME")
+Section:NewSlider("Speed", "Speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
